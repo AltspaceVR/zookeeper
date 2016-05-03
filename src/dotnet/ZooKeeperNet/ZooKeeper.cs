@@ -398,12 +398,18 @@
 
             if (LOG.IsDebugEnabled)
             {
-                LOG.DebugFormat("Closing session: 0x{0:X}", SessionId);
+                if (cnxn != null)
+                {
+                    LOG.DebugFormat("Closing session: 0x{0:X}", SessionId);
+                }
             }
 
             try
             {
-                cnxn.Dispose();
+                if (cnxn != null)
+                {
+                    cnxn.Dispose();
+                }
             }
             catch (Exception e)
             {
@@ -413,7 +419,10 @@
                 }
             }
 
-            LOG.DebugFormat("Session: 0x{0:X} closed", SessionId);
+            if (cnxn != null)
+            {
+                LOG.DebugFormat("Session: 0x{0:X} closed", SessionId);
+            }
         }
 
         public void Dispose()
